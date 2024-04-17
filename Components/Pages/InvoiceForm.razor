@@ -1,0 +1,23 @@
+@page "/form"
+
+<EditForm Model="@(new object())" style="display: flex; visibility: visible; float: left" class="flex-column gap-3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputTextArea @bind-Value="description" required/>
+    <InputDate @bind-Value="workDate" required/>
+    <input type="number" min="1" step="any" @bind-value="price" required />
+    <InputNumber @bind-Value="unit" />
+
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private String description;
+    private DateTime workDate;
+    private int price;
+    private int? unit;
+
+
+}

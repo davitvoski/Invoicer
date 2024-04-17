@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using BlazorBootstrap;
 
 namespace Invoicer
 {
@@ -15,9 +16,9 @@ namespace Invoicer
                 });
 
             builder.Services.AddMauiBlazorWebView();
-
+            builder.Services.AddBlazorBootstrap();
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 
