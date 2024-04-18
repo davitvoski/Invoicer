@@ -18,7 +18,7 @@ namespace Invoicer.Data.Invoice
 		public String? Date { get; set; }
 
 		required
-		public int Unit
+		public int Quantity
 		{ get; set; } = 1;
 
 		required
@@ -37,7 +37,7 @@ namespace Invoicer.Data.Invoice
 		 */
 		public void CalculateTotalPrice()
 		{
-			this.totalPrice = Unit * Price;
+			this.totalPrice = Quantity * Price;
 		}
 
 
