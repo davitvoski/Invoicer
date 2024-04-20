@@ -1,45 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Invoicer.Data.Invoice
+﻿namespace Invoicer.Data.Invoice
 {
 	public class InvoiceItem
 	{
-
-		private int totalPrice;
+		private Decimal totalPrice;
 		
-		required
 		public String Description { get; set; } = "";
 
-		required
-		public String? Date { get; set; }
+		public DateOnly Date { get; set; }
 
-		required
 		public int Quantity
 		{ get; set; } = 1;
 
-		required
-		public int Price { get; set; }
+		public Decimal Price { get; set; } = 0;
 
-		public int TotalPrice { 
+		public Decimal TotalPrice { 
 			get 
 			{
 				CalculateTotalPrice();
 				return this.totalPrice;
 			}
 		}
-
+	
 		/**
 		 * Calculate the totale price of the invoice item.
 		 */
 		public void CalculateTotalPrice()
 		{
-			this.totalPrice = Quantity * Price;
+			this.totalPrice =  Quantity * Price;
 		}
 
-
+		public override string ToString()
+		{
+			return "Description: " + this.Description + " | Date: " + this.Date.ToString() + " | Quantity: " + this.Quantity + " | Price: " + this.Price + " | totalPrice: " + this.totalPrice;
+		}
 	}
 }

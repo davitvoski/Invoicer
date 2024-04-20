@@ -1,82 +1,37 @@
 @page "/form"
 @using BlazorBootstrap;
+@using Invoicer.Components.Invoice_Line
 @using Invoicer.Data.Invoice
 @using MudBlazor;
+@using Invoicer.Components;
 
-<div style="display: inline-flex; flex-direction:column; ">
-	<table id="invoice" style="display:inline-grid; grid-gap: 1em 1em ">
-		<tr>
-			<th>Item #</th>
+<div style="display: inline-flex; flex-direction: column;">
+
+	<table id="invoiceTable">
+		<tr style="text-align:center">
 			<th>Description</th>
 			<th>Date</th>
-			<th>Unit</th>
 			<th>Price</th>
+			<th>QTY</th>
 		</tr>
 		<tr>
-			<td>1</td>
-			<td>
-				<InputText @bind-Value="_description" required />
-
-			</td>
-			<td>
-				<InputDate @bind-Value="_workDate" required />
-			</td>
-			<td>
-				<CurrencyInput TValue="int" @bind-Value="_price" CurrencySign=CurrencySign.Accounting Locale="fr-CA" />
-			</td>
-			<td>
-				<InputNumber @bind-Value="_unit" />
-			</td>
-			<td>X</td>
+			<InvoiceLine Invoice="invoice" />
 		</tr>
 	</table>
-	<MudButton>Add</MudButton>
-
+	@* <Button @onclick="Log">Console log</Button> *@
 </div>
-@* <MudDataGrid T="InvoiceItem" Items="invoice" EditMode="@DataGridEditMode.Cell" EditTrigger="@DataGridEditTrigger.Manual" Bordered="true" Dense="true"
-			 StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges">
-	<Columns>
-		<PropertyColumn Property="x => x.Description" />
-		<PropertyColumn Property="x => x.Date" />
-		<PropertyColumn Property="x => x.Quantity" title="QTY" />
-		<PropertyColumn Property="x => x.Price" />
-		<PropertyColumn Property="x => x.TotalPrice" />
-		<TemplateColumn Hidden="@(_isCellEditMode || _readOnly)">
-			<CellTemplate>
-				<MudIconButton Size="@MudBlazor.Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-			</CellTemplate>
-		</TemplateColumn>
-	</Columns>
-
-</MudDataGrid> *@
 
 
 @code {
-	private IEnumerable<InvoiceItem> invoice = new List<InvoiceItem>();
-	private bool _readOnly;
-	private bool _isCellEditMode;
-	private List<string> _events = new();
-	private bool _editTriggerRowClick;
+	private List<InvoiceItem> invoice = new List<InvoiceItem>();
 
-	private String _description = "";
-	private DateTime _workDate;
-	private int _price;
-	private int? _unit;
-
-
-	// events
-	void StartedEditingItem(InvoiceItem item)
+	private void Log()
 	{
-		_events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+		invoice.ForEach(item =>
+		{
+			System.Diagnostics.Debug.Print(item.Description.ToString());
+
+		});
 	}
 
-	void CanceledEditingItem(InvoiceItem item)
-	{
-		_events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-	}
-
-	void CommittedItemChanges(InvoiceItem item)
-	{
-		_events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-	}
 }

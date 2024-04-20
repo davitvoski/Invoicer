@@ -1,0 +1,47 @@
+﻿@using BlazorBootstrap;
+@using Invoicer.Components.Invoice_Line
+@using Invoicer.Data.Invoice
+@using MudBlazor;
+@using Invoicer.Components;
+
+<tr>
+	<td>
+		<InputText @bind-Value="invoiceline.Description" required />
+	</td>
+	<td>
+		<InputDate @bind-Value="invoiceline.Date" required />
+	</td>
+	<td>
+		<CurrencyInput TValue="decimal" @bind-Value="invoiceline.Price" CurrencySign=CurrencySign.Accounting Locale="fr-CA" />
+	</td>
+	<td>
+		<InputNumber TValue="int" @bind-Value="invoiceline.Quantity" />
+	</td>
+	<span>@invoiceline.TotalPrice</span>
+	<td>
+	</td>
+	<td>
+	</td>
+	<td>X</td>
+	<td> <button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault >PRINT ME </button ></td> 
+</tr>
+
+@code {
+	[Parameter]
+	public List<InvoiceItem> Invoice { get; set; }
+	private InvoiceItem invoiceline = new InvoiceItem();
+
+	private void Log()
+	{
+		System.Diagnostics.Debug.Print(invoiceline.ToString());
+	}
+
+	private Boolean lol()
+	{
+		return false;
+	}
+	// protected override async Task OnInitializedAsync()
+	// {
+	// 	Invoice.Add(invoiceline);
+		// }
+}
