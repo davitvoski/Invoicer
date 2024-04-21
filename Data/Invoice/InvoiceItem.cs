@@ -1,9 +1,7 @@
 ﻿namespace Invoicer.Data.Invoice
 {
-	public class InvoiceItem
+	public class InvoiceItem()
 	{
-		private Decimal totalPrice;
-		
 		public String Description { get; set; } = "";
 
 		public DateOnly Date { get; set; }
@@ -16,22 +14,13 @@
 		public Decimal TotalPrice { 
 			get 
 			{
-				CalculateTotalPrice();
-				return this.totalPrice;
+				return this.Quantity * Price;
 			}
 		}
 	
-		/**
-		 * Calculate the totale price of the invoice item.
-		 */
-		public void CalculateTotalPrice()
-		{
-			this.totalPrice =  Quantity * Price;
-		}
-
 		public override string ToString()
 		{
-			return "Description: " + this.Description + " | Date: " + this.Date.ToString() + " | Quantity: " + this.Quantity + " | Price: " + this.Price + " | totalPrice: " + this.totalPrice;
+			return "Description: " + this.Description + " | Date: " + this.Date.ToString() + " | Quantity: " + this.Quantity + " | Price: " + this.Price + " | totalPrice: " + this.TotalPrice;
 		}
 	}
 }

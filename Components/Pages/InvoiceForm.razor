@@ -14,24 +14,40 @@
 			<th>Price</th>
 			<th>QTY</th>
 		</tr>
-		<tr>
-			<InvoiceLine Invoice="invoice" />
-		</tr>
+		@foreach (var invoiceLine in invoice)
+		{
+			<tr>
+				<InvoiceLine invoiceline="invoiceLine" />
+			</tr>
+		}
+
 	</table>
-	@* <Button @onclick="Log">Console log</Button> *@
+	<button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault>LOG ME</button>
+
 </div>
 
-
+<span>
+	<Button @onclick="AddNewInvoiceLine">New Item</Button>
+</span>
 @code {
 	private List<InvoiceItem> invoice = new List<InvoiceItem>();
 
+
 	private void Log()
 	{
-		invoice.ForEach(item =>
+
+		invoice.ForEach(invoiceline =>
 		{
-			System.Diagnostics.Debug.Print(item.Description.ToString());
+			System.Diagnostics.Debug.Print(invoiceline.ToString());
 
 		});
 	}
+
+	private void AddNewInvoiceLine()
+	{
+		invoice.Add(new InvoiceItem());	
+	}
+
+
 
 }

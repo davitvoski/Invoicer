@@ -4,7 +4,7 @@
 @using MudBlazor;
 @using Invoicer.Components;
 
-<tr>
+<tr id="">
 	<td>
 		<InputText @bind-Value="invoiceline.Description" required />
 	</td>
@@ -17,31 +17,17 @@
 	<td>
 		<InputNumber TValue="int" @bind-Value="invoiceline.Quantity" />
 	</td>
-	<span>@invoiceline.TotalPrice</span>
 	<td>
+		@invoiceline.TotalPrice
 	</td>
 	<td>
 	</td>
 	<td>X</td>
-	<td> <button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault >PRINT ME </button ></td> 
 </tr>
 
 @code {
 	[Parameter]
-	public List<InvoiceItem> Invoice { get; set; }
-	private InvoiceItem invoiceline = new InvoiceItem();
+	[EditorRequired]
+	public required InvoiceItem invoiceline { get; set; }
 
-	private void Log()
-	{
-		System.Diagnostics.Debug.Print(invoiceline.ToString());
-	}
-
-	private Boolean lol()
-	{
-		return false;
-	}
-	// protected override async Task OnInitializedAsync()
-	// {
-	// 	Invoice.Add(invoiceline);
-		// }
 }
