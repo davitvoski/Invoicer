@@ -9,7 +9,7 @@
 		<InputText @bind-Value="invoiceline.Description" required />
 	</td>
 	<td>
-		<InputDate @bind-Value="invoiceline.Date" required />
+		<InputDate @bind-Value="invoiceline.Date" placeeholder="2024-01-01" min="2024-01-01" required />
 	</td>
 	<td>
 		<CurrencyInput TValue="decimal" @bind-Value="invoiceline.Price" CurrencySign=CurrencySign.Accounting Locale="fr-CA" />
@@ -22,12 +22,29 @@
 	</td>
 	<td>
 	</td>
-	<td>X</td>
+
+	@if (invoice.Count() != 1 && invoice[0] != invoiceline)
+	{
+		<td @onclick="(args) => DeleteInvoiceItem()"> <button type="button">X</button></td>
+	}
 </tr>
 
 @code {
 	[Parameter]
 	[EditorRequired]
+	public required List<InvoiceItem> invoice { get; set; }
+
+	[Parameter]
+	[EditorRequired]
 	public required InvoiceItem invoiceline { get; set; }
+
+	[Parameter]
+	public EventCallback<InvoiceItem> DeleteInvoiceLine { get; set; }
+
+	
+	private async Task DeleteInvoiceItem()
+	{
+		await DeleteInvoiceLine.InvokeAsync(invoiceline);
+	}
 
 }

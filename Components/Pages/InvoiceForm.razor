@@ -17,12 +17,12 @@
 		@foreach (var invoiceLine in invoice)
 		{
 			<tr>
-				<InvoiceLine invoiceline="invoiceLine" />
+				<InvoiceLine invoice="invoice" invoiceline="invoiceLine" DeleteInvoiceLine="DeleteInvoiceLine" />
 			</tr>
 		}
 
 	</table>
-	<button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault>LOG ME</button>
+	 <button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault>LOG ME</button>
 
 </div>
 
@@ -30,7 +30,10 @@
 	<Button @onclick="AddNewInvoiceLine">New Item</Button>
 </span>
 @code {
-	private List<InvoiceItem> invoice = new List<InvoiceItem>();
+	private List<InvoiceItem> invoice = new List<InvoiceItem>()
+	{
+		new InvoiceItem()
+	};
 
 
 	private void Log()
@@ -45,9 +48,12 @@
 
 	private void AddNewInvoiceLine()
 	{
-		invoice.Add(new InvoiceItem());	
+		invoice.Add(new InvoiceItem());
 	}
 
-
+	protected void DeleteInvoiceLine(InvoiceItem invoiceitem)
+	{
+		invoice.Remove(invoiceitem);
+	}
 
 }
