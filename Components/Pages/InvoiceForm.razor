@@ -1,13 +1,31 @@
 @page "/form"
-@using BlazorBootstrap;
 @using Invoicer.Components.Invoice_Line
 @using Invoicer.Data.Invoice
 @using MudBlazor;
 @using Invoicer.Components;
 
-<div style="display: inline-flex; flex-direction: column;">
 
-	<table id="invoiceTable">
+
+	<MudSimpleTable Style="overflow-x: auto;">
+		<thead>
+			<tr>
+				<th>Description</th>
+				<th>Date</th>
+				<th>Price</th>
+				<th>QTY</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var invoiceLine in invoice)
+			{
+				<tr>
+					<InvoiceLine invoice="invoice" invoiceline="invoiceLine" DeleteInvoiceLine="DeleteInvoiceLine" />
+				</tr>
+			}
+		</tbody>
+	</MudSimpleTable>
+
+@* 	<table id="invoiceTable">
 		<tr style="text-align:center">
 			<th>Description</th>
 			<th>Date</th>
@@ -21,10 +39,9 @@
 			</tr>
 		}
 
-	</table>
+	</table> *@
 	 <button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault>LOG ME</button>
 
-</div>
 
 <span>
 	<Button @onclick="AddNewInvoiceLine">New Item</Button>
