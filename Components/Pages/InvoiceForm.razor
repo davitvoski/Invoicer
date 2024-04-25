@@ -5,8 +5,10 @@
 @using Invoicer.Components;
 
 
+<div>
 
-	<MudSimpleTable Style="overflow-x: auto;">
+
+	<MudSimpleTable Style="overflow-x: auto;" Bordered="true" Dense="true">
 		<thead>
 			<tr>
 				<th>Description</th>
@@ -16,36 +18,21 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var invoiceLine in invoice)
+			@foreach (InvoiceItem invoiceLine in invoice)
 			{
-				<tr>
-					<InvoiceLine invoice="invoice" invoiceline="invoiceLine" DeleteInvoiceLine="DeleteInvoiceLine" />
-				</tr>
+				<InvoiceLine invoice="invoice" invoiceline="invoiceLine" DeleteInvoiceLine="DeleteInvoiceLine" />
 			}
 		</tbody>
 	</MudSimpleTable>
 
-@* 	<table id="invoiceTable">
-		<tr style="text-align:center">
-			<th>Description</th>
-			<th>Date</th>
-			<th>Price</th>
-			<th>QTY</th>
-		</tr>
-		@foreach (var invoiceLine in invoice)
-		{
-			<tr>
-				<InvoiceLine invoice="invoice" invoiceline="invoiceLine" DeleteInvoiceLine="DeleteInvoiceLine" />
-			</tr>
-		}
 
-	</table> *@
-	 <button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault>LOG ME</button>
+	<span>
+		<button type="button" @onclick="Log" @onclick:preventDefault @onsubmit:preventDefault>LOG ME</button>
+		<button @onclick="AddNewInvoiceLine">New Item</button>
+	</span>
 
+</div>
 
-<span>
-	<Button @onclick="AddNewInvoiceLine">New Item</Button>
-</span>
 @code {
 	private List<InvoiceItem> invoice = new List<InvoiceItem>()
 	{

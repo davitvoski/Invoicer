@@ -14,7 +14,11 @@
 		public Decimal TotalPrice { 
 			get 
 			{
-				return this.Quantity * Price;
+				return  Quantity * Price;
+			}
+			set
+			{
+				//Set the total price
 			}
 		}
 	

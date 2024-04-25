@@ -18,7 +18,7 @@
 		<InputNumber TValue="int" @bind-Value="invoiceline.Quantity" />
 	</td>
 	<td>
-		@invoiceline.TotalPrice
+		<CurrencyInput TValue="decimal" @bind-Value="invoiceline.TotalPrice" Disabled="true" CurrencySign=CurrencySign.Accounting Locale="fr-CA" />
 	</td>
 	<td>
 	</td>
